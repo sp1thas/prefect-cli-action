@@ -57,7 +57,7 @@ runs:
         }} ${{ inputs.requirementsFiles }}
       shell: bash
     - run:
-        ${{ github.action_path }}/bin/run_login ${{ secrets.PREFECT_TOKEN }}
+        ${{ github.action_path }}/bin/run_login ${{ secrets.PREFECT_APIKEY }}
       shell: bash
     - id: run-prefect
       run:
