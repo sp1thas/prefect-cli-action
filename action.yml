@@ -2,7 +2,7 @@ name: prefect-cli
 author: sp1thas
 description: Run prefect commands on a Python project
 branding:
-  icon: check
+  icon: cloud
   color: blue
 
 inputs:

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "::group::Run command: prefect ${1}"
+
 prefect_command_result=$(prefect "${1}")
 
 exit_code=$?

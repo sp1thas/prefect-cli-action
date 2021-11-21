@@ -28,10 +28,10 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - uses: sp1thas/prefect-action@main
+      - uses: sp1thas/prefect-cli-action@main
         with:
           command: auth login --key ${{ secrets.PREFECT_APIKEY }}
-      - uses: sp1thas/prefect-action@main
+      - uses: sp1thas/prefect-cli-action@main
         with:
           command: register -p flows/flow.py
 ```
