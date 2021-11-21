@@ -6,6 +6,9 @@ branding:
   color: blue
 
 inputs:
+  apiKey:
+    description: A Prefect Cloud API key.
+    required: true
   projectName:
     description: The name of the Prefect project to register this flow in
     required: true
@@ -53,11 +56,10 @@ runs:
     - run: ${{ github.action_path }}/bin/ensure_python
       shell: bash
     - run:
-        ${{ github.action_path }}/bin/install_packages ${{ inputs.prefectVersion
-        }} ${{ inputs.requirementsFiles }}
+        ${{ github.action_path }}/bin/install_packages ${{ inputs.prefectVersion }} ${{ inputs.requirementsFiles }}
       shell: bash
     - run:
-        ${{ github.action_path }}/bin/run_login ${{ secrets.PREFECT_APIKEY }}
+        ${{ github.action_path }}/bin/run_login ${{ inputs.apiKey }}
       shell: bash
     - id: run-prefect
       run:
