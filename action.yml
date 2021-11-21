@@ -15,7 +15,7 @@ inputs:
   prefectVersion:
     description: Version of prefect to use
     required: false
-    default: "-"
+    default: ""
   flowPath:
     description: A path to a file or a directory containing the flow(s) to register.
     required: false
