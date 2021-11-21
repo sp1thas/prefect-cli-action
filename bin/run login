@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo "Running prefect login"
+
+prefect_result=$(prefect auth login -k "${1}")

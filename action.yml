@@ -56,6 +56,9 @@ runs:
         ${{ github.action_path }}/bin/install_packages ${{ inputs.prefectVersion
         }} ${{ inputs.requirementsFiles }}
       shell: bash
+    - run:
+        ${{ github.action_path }}/bin/run_login ${{ secrets.PREFECT_TOKEN }}
+      shell: bash
     - id: run-prefect
       run:
         ${{ github.action_path }}/bin/run_register ${{ inputs.projectName }} ${{ inputs.flowPath }} ${{ inputs.flowModulePath }} ${{ inputs.jsonPath }} ${{ inputs.flowName }} ${{ inputs.flowLabel }}
