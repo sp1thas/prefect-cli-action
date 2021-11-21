@@ -16,7 +16,8 @@ It requires that the [`checkout`][github-checkout] and [`setup-python`][github-s
 
 ## Outputs
 
- - `prefect-result`: Output of the `prefect register` CLI.
+ - `prefect-login`: Output of the `prefect auth login` command.
+ - `prefect-register`: Output of the `prefect register` command.
 
 ## Example usage
 

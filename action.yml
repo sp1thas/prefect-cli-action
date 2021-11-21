@@ -46,9 +46,12 @@ inputs:
     default: ""
 
 outputs:
-  prefect-result:
-    description: prefect result
-    value: ${{ steps.run-isort.outputs.isort-output }}
+  prefect-login:
+    description: prefect login result
+    value: ${{ steps.run-prefect-login.outputs.prefect-output }}
+  prefect-register:
+    description: prefect register result
+    value: ${{ steps.run-prefect-register.outputs.prefect-output }}
 
 runs:
   using: composite
@@ -58,10 +61,11 @@ runs:
     - run:
         ${{ github.action_path }}/bin/install_packages ${{ inputs.prefect-version }} ${{ inputs.requirements-files }}
       shell: bash
-    - run:
+    - id: run-prefect-login
+      run:
         ${{ github.action_path }}/bin/run_login ${{ inputs.api-key }}
       shell: bash
-    - id: run-prefect
+    - id: run-prefect-register
       run:
         ${{ github.action_path }}/bin/run_register ${{ inputs.project-name }} ${{ inputs.flow-path }} ${{ inputs.flow-module-path }} ${{ inputs.json-path }} ${{ inputs.flow-name }} ${{ inputs.flow-label }}
       shell: bash
