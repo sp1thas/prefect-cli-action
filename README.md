@@ -33,13 +33,9 @@ jobs:
       - name: Perform prefect login
         uses: sp1thas/prefect-cli-action@main
         with:
-          command:
-            prefect auth login --key ${{ secrets.PREFECT_APIKEY }}
-          shell: bash
+          command: prefect auth login --key ${{ secrets.PREFECT_APIKEY }}
       - name: Register prefect flow
         uses: sp1thas/prefect-cli-action@main
         with:
-          command:
-            prefect register --project test -p flows/flow.py
-          shell: bash
+          command: prefect register --project test -p flows/flow.py
 ```
