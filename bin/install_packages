@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+prefect_version=$1
+requirements_files=$2
+
+echo "::group::Install prefect"
+if [ -z "$prefect_version" ]; then
+    echo "Installing latest version of prefect"
+    pip3 install "prefect"
+else
+    echo "Installing prefect==$prefect_version"
+    pip3 install "prefect==$prefect_version"
+fi
+echo "::endgroup::"
+
+if [ -n "$requirements_files" ]; then
+    echo "::group::Install modules from requirements arg"
+    for file in $requirements_files; do
+        pip install -r "$file"
+    done
+    echo "::endgroup::"
+fi

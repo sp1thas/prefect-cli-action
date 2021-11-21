@@ -1,0 +1,62 @@
+name: python-prefect
+author: sp1thas
+description: Run prefect commands on a Python project
+branding:
+  icon: check
+  color: blue
+
+inputs:
+  projectName:
+    description: The name of the Prefect project to register this flow in
+    required: true
+  prefectVersion:
+    description: Version of prefect to use
+    required: false
+    default: "-"
+  flowPath:
+    description: A path to a file or a directory containing the flow(s) to register.
+    required: false
+    default: "-"
+  flowModulePath:
+    description: A python module name containing the flow(s) to register.
+    required: false
+    default: "-"
+  jsonPath:
+    description: A path or URL to a JSON file created by `prefect build` containing the flow(s) to register.
+    required: false
+    default: "-"
+  flowName:
+    description:
+      The name of a flow to register from the specified paths/modules.
+      If provided, only flows with a matching name will be registered.
+    required: false
+    default: "-"
+  flowLabel:
+    description: A label to add on all registered flow(s).
+    required: false
+    default: "-"
+  requirementsFiles:
+    description:
+      path(s) to requirements files that should be installed to properly
+      configure third-party imports
+    required: false
+    default: "-"
+
+outputs:
+  prefect-result:
+    description: prefect result
+    value: ${{ steps.run-isort.outputs.isort-output }}
+
+runs:
+  using: composite
+  steps:
+    - run: ${{ github.action_path }}/bin/ensure_python
+      shell: bash
+    - run:
+        ${{ github.action_path }}/bin/install_packages ${{ inputs.prefectVersion
+        }} ${{ inputs.requirementsFiles }}
+      shell: bash
+    - id: run-prefect
+      run:
+        ${{ github.action_path }}/bin/run_register ${{ inputs.projectName }} ${{ inputs.flowPath }} ${{ inputs.flowModulePath }} ${{ inputs.jsonPath }} ${{ inputs.flowName }} ${{ inputs.flowLabel }}
+      shell: bash
