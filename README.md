@@ -1,6 +1,8 @@
 # Prefect CLI Github Action
 
-It requires that the [`checkout`][github-checkout] and [`setup-python`][github-setup-python] actions be used first.
+GitHub Action for running [Prefect](https://prefect.io/) commands using the [Prefect CLI](https://docs.prefect.io/orchestration/concepts/cli.html).
+
+It requires that the [`checkout`](https://github.com/actions/checkout) and [`setup-python`](https://github.com/actions/setup-python) actions be used first.
 
 ## Inputs
 
@@ -28,10 +30,16 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - uses: sp1thas/prefect-cli-action@main
+      - name: Perform prefect login
+        uses: sp1thas/prefect-cli-action@main
         with:
-          command: prefect auth login --key ${{ secrets.PREFECT_APIKEY }}
-      - uses: sp1thas/prefect-cli-action@main
+          command:
+            prefect auth login --key ${{ secrets.PREFECT_APIKEY }}
+          shell: bash
+      - name: Register prefect flow
+        uses: sp1thas/prefect-cli-action@main
         with:
-          command: prefect register -p flows/flow.py
+          command:
+            prefect register --project test -p flows/flow.py
+          shell: bash
 ```

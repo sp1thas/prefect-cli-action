@@ -18,7 +18,7 @@ inputs:
     default: ""
   requirements-files:
     description:
-      path(s) to requirements files that should be installed to properly
+      Path(s) to requirements files that should be installed to properly
       configure third-party imports
     required: false
     default: ""
