@@ -1,23 +1,17 @@
-# prefect Github Action
+# Prefect CLI Github Action
 
 It requires that the [`checkout`][github-checkout] and [`setup-python`][github-setup-python] actions be used first.
 
 ## Inputs
 
- - `api-key` _(Required)_: A Prefect Cloud API key.
- - `project-name` _(Required)_: The name of the Prefect project to register this flow in.
+ - `api-key` _(Required)_: A Prefect Cloud API key
+ - `command` _(Required)_: The prefect command
  - `prefect-version` _(Optional)_:  Version of prefect to use
- - `flow-path` _(Optional)_: A path to a file or a directory containing the flow(s) to register
- - `flow-module-path` _(Optional)_: A python module name containing the flow(s) to register
- - `json-path` _(Optional)_: A path or URL to a JSON file created by `prefect build` containing the flow(s) to register
- - `flow-name` _(Optional)_: The name of a flow to register from the specified paths/modules. If provided, only flows with a matching name will be registered
- - `flow-label` _(Optional)_: A label to add on all registered flow(s)
  - `requirements-files` _(Optional)_: Path(s) to requirements files that should be installed to properly configure third-party imports
 
 ## Outputs
 
- - `prefect-login`: Output of the `prefect auth login` command.
- - `prefect-register`: Output of the `prefect register` command.
+ - `prefect-command`: Output of the prefect command
 
 ## Example usage
 
@@ -36,7 +30,8 @@ jobs:
           python-version: 3.8
       - uses: sp1thas/prefect-action@main
         with:
-          apiKey: ${{ secrets.PREFECT_APIKEY }}
-          projectName: test
-          flowPath: flows/flow.py
+          command: auth login --key ${{ secrets.PREFECT_APIKEY }}
+      - uses: sp1thas/prefect-action@main
+        with:
+          command: register -p flows/flow.py
 ```

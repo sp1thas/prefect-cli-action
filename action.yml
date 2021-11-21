@@ -1,4 +1,4 @@
-name: python-prefect
+name: prefect-cli
 author: sp1thas
 description: Run prefect commands on a Python project
 branding:
@@ -9,33 +9,11 @@ inputs:
   api-key:
     description: A Prefect Cloud API key.
     required: true
-  project-name:
-    description: The name of the Prefect project to register this flow in
+  command:
+    description: A prefect command.
     required: true
   prefect-version:
     description: Version of prefect to use
-    required: false
-    default: ""
-  flow-path:
-    description: A path to a file or a directory containing the flow(s) to register.
-    required: false
-    default: ""
-  flow-module-path:
-    description: A python module name containing the flow(s) to register.
-    required: false
-    default: ""
-  json-path:
-    description: A path or URL to a JSON file created by `prefect build` containing the flow(s) to register.
-    required: false
-    default: ""
-  flow-name:
-    description:
-      The name of a flow to register from the specified paths/modules.
-      If provided, only flows with a matching name will be registered.
-    required: false
-    default: ""
-  flow-label:
-    description: A label to add on all registered flow(s).
     required: false
     default: ""
   requirements-files:
@@ -46,12 +24,9 @@ inputs:
     default: ""
 
 outputs:
-  prefect-login:
-    description: prefect login result
-    value: ${{ steps.run-prefect-login.outputs.prefect-output }}
-  prefect-register:
-    description: prefect register result
-    value: ${{ steps.run-prefect-register.outputs.prefect-output }}
+  prefect-command:
+    description: prefect command result
+    value: ${{ steps.run-prefect-command.outputs.prefect-command-result }}
 
 runs:
   using: composite
@@ -61,11 +36,7 @@ runs:
     - run:
         ${{ github.action_path }}/bin/install_packages ${{ inputs.prefect-version }} ${{ inputs.requirements-files }}
       shell: bash
-    - id: run-prefect-login
+    - id: run-prefect-command
       run:
-        ${{ github.action_path }}/bin/run_login ${{ inputs.api-key }}
-      shell: bash
-    - id: run-prefect-register
-      run:
-        ${{ github.action_path }}/bin/run_register ${{ inputs.project-name }} ${{ inputs.flow-path }} ${{ inputs.flow-module-path }} ${{ inputs.json-path }} ${{ inputs.flow-name }} ${{ inputs.flow-label }}
+        ${{ github.action_path }}/bin/run_prefect ${{ inputs.command }}
       shell: bash

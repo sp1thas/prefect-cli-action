@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+prefect_command_result=$(prefect "${1}")
+
+exit_code=$?
+
+echo "::set-output name=prefect-command-result::${prefect_command_result}"
+exit $exit_code
