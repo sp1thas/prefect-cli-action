@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 
-echo "Running prefect $*"
+echo "Running prefect register ${*}"
 
 args="--project ${1}"
 
-if [ ! "${2}" == "-" ];
+if [ -z "${2}" ];
 then
   args="${args} -p ${2}"
 fi
-if [ ! "${3}" == "-" ];
+if [ -z "${3}" ];
 then
   args="${args} -m ${3}"
 fi
-if [ ! "${4}" == "-" ];
+if [ -z "${4}" ];
 then
   args="${args} -j ${4}"
 fi
-if [ ! "${5}" == "-" ];
+if [ -z "${5}" ];
 then
   args="${args} -n ${5}"
 fi
-if [ ! "${6}" == "-" ];
+if [ -z "${6}" ];
 then
   args="${args} -l ${6}"
 fi
