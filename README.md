@@ -30,8 +30,8 @@ jobs:
           python-version: 3.8
       - uses: sp1thas/prefect-cli-action@main
         with:
-          command: auth login --key ${{ secrets.PREFECT_APIKEY }}
+          command: prefect auth login --key ${{ secrets.PREFECT_APIKEY }}
       - uses: sp1thas/prefect-cli-action@main
         with:
-          command: register -p flows/flow.py
+          command: prefect register -p flows/flow.py
 ```

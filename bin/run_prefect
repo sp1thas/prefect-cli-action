@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-echo "::group::Run command: prefect ${*}"
+echo "::group::Run command: ${*}"
 
-prefect_command_result=$(prefect "${*}")
+prefect_command_result=$("${*}")
 
 exit_code=$?
 
