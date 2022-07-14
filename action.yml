@@ -31,12 +31,12 @@ outputs:
 runs:
   using: composite
   steps:
-    - run: ${{ github.action_path }}/bin/ensure_python
+    - run: $GITHUB_ACTION_PATH/bin/ensure_python
       shell: bash
     - run:
-        ${{ github.action_path }}/bin/install_packages ${{ inputs.prefect-version }} ${{ inputs.requirements-files }}
+        $GITHUB_ACTION_PATH/bin/install_packages ${{ inputs.prefect-version }} ${{ inputs.requirements-files }}
       shell: bash
     - id: run-prefect-command
       run:
-        ${{ github.action_path }}/bin/run_prefect ${{ inputs.command }}
+        $GITHUB_ACTION_PATH/bin/run_prefect ${{ inputs.command }}
       shell: bash
